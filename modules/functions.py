@@ -21,15 +21,18 @@ def connexion() :
         print("Connection...")
         username =  input("Nom d'utilisateur : " )
         password =  input("mot de passe: " )
-
-        if username == df_username and bdd['username'][0] :
+        if username == df_username and bdd['username'][0]:
             a = bdd['password'][0]
             verif = check_password_hash(a,password)
             if verif : 
                 print("Connexion établie.")
+                return True
             else:
                 print("Mot de passe incorrect.")
                 return False
+        else:
+             print("tu es pas un admin")
+             return False
 def create():
     print("Création d'un nouvel utilisateur : ")
     username = input("Username : ")
@@ -41,6 +44,7 @@ def create():
         writer.writerow({'username': username, 'password': generate_password_hash(password), 'email' : email, 'nbr_logins': nbr_connection})
     print("Utilisateur : ",username," a bien été ajouté.")
     return True
+
 def read():
     print("----- Base de données -----")
     bdd_df = pd.DataFrame(bdd)
